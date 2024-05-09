@@ -1,0 +1,18 @@
+name: "Update devnoname120/nextcloud-htmlviewer mirror"
+on:
+  schedule:
+    # Every day at 6 am
+    - cron: "0 6 * * *"
+  workflow_dispatch:
+
+jobs:
+  mirror:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Clone https://git.mdns.eu/nextcloud/htmlviewer.git
+        run: git clone --mirror https://git.mdns.eu/nextcloud/htmlviewer.git htmlviewer
+      - name: Mirror push to https://github.com/devnoname120/nextcloud-htmlviewer.git
+        working-directory: ./htmlviewer
+        env:
+          MIRROR_REPOSITORY_PERSONAL_ACCESS_TOKEN: ${{ secrets.MIRROR_REPOSITORY_PERSONAL_ACCESS_TOKEN }}
+        run: git push --mirror https://devnoname120:${{ secrets.MIRROR_REPOSITORY_PERSONAL_ACCESS_TOKEN }}@github.com/devnoname120/nextcloud-htmlviewer.git
