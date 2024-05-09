@@ -16,3 +16,12 @@ jobs:
         env:
           MIRROR_REPOSITORY_PERSONAL_ACCESS_TOKEN: ${{ secrets.MIRROR_REPOSITORY_PERSONAL_ACCESS_TOKEN }}
         run: git push --mirror https://devnoname120:${{ secrets.MIRROR_REPOSITORY_PERSONAL_ACCESS_TOKEN }}@github.com/devnoname120/nextcloud-htmlviewer.git
+
+  workflow-keepalive:
+    runs-on: ubuntu-latest
+    permissions:
+      actions: write
+    steps:
+      - uses: liskin/gh-workflow-keepalive@v1.1.0
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
