@@ -18,10 +18,9 @@ jobs:
         run: git push --mirror https://devnoname120:${{ secrets.MIRROR_REPOSITORY_PERSONAL_ACCESS_TOKEN }}@github.com/devnoname120/nextcloud-htmlviewer.git
 
   workflow-keepalive:
+    if: github.event_name == 'schedule'
     runs-on: ubuntu-latest
     permissions:
       actions: write
     steps:
-      - uses: liskin/gh-workflow-keepalive@v1.1.0
-        with:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - uses: liskin/gh-workflow-keepalive@f72ff1a1336129f29bf0166c0fd0ca6cf1bcb38c # v1.2.1
